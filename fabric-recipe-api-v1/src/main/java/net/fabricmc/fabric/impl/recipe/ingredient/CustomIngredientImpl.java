@@ -30,6 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.Identifier;
@@ -92,16 +93,21 @@ public class CustomIngredientImpl extends Ingredient {
 	}
 
 	@Override
-	public List<RegistryEntry<Item>> getMatchingStacks() {
-		if (this.matchingStacks == null) {
-			this.matchingStacks = customIngredient.getMatchingStacks();
+	public List<RegistryEntry<Item>> getMatchingItems() {
+		if (this.matchingItems == null) {
+			this.matchingItems = customIngredient.getMatchingItems();
 		}
 
-		return this.matchingStacks;
+		return this.matchingItems;
 	}
 
 	@Override
 	public boolean test(@Nullable ItemStack stack) {
 		return stack != null && customIngredient.test(stack);
+	}
+
+	@Override
+	public SlotDisplay toDisplay() {
+		return customIngredient.toDisplay();
 	}
 }
